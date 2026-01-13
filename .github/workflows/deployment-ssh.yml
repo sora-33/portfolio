@@ -20,6 +20,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 10022
           script: |
-            cd /home/${{ secrets.SSH_USERNAME }}/your-domain.com/public_html
+            cd /home/${{ secrets.SSH_USERNAME }}/jibiki.tech/public_html
 
             rsync -avz --delete --exclude='.git/' ./ /home/${{ secrets.SSH_USERNAME }}/jibiki.tech/public_html/
