@@ -22,4 +22,4 @@ jobs:
           script: |
             cd /home/${{ secrets.SSH_USERNAME }}/your-domain.com/public_html
 
-            rsync -avz --delete --exclude='.git/' ./ /home/${{ secrets.SSHUSERNAME }}/jibiki.tech/public_html/
+            rsync -avz --delete --exclude='.git/' ./ /home/${{ secrets.SSH_USERNAME }}/jibiki.tech/public_html/
