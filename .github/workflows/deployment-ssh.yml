@@ -11,13 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Debug SSH_HOST presence
+      - name: Debug SSH_HOSTNAME presence
         run: |
-          if [ -z "${{ secrets.SSH_HOST }}" ]; then
-            echo "ERROR: secrets.SSH_HOST is EMPTY (name mismatch or env secret not attached)"
+          if [ -z "${{ secrets.SSH_HOSTNAME }}" ]; then
+            echo "ERROR: secrets.SSH_HOSTNAME is EMPTY (name mismatch or env secret not attached)"
             exit 1
           fi
-          echo "SSH_HOST is set"
+          echo "SSH_HOSTNAME is set"
 
       - name: Debug SSH_USERNAME presence
         run: |
@@ -43,7 +43,7 @@ jobs:
           ${{ secrets.SSH_PRIVATE_KEY }}
           EOF
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -p 10022 ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -p 10022 ${{ secrets.SSH_HOSTNAME }} >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
         run: |
@@ -54,4 +54,4 @@ jobs:
             --exclude='.gitignore' \
             -e 'ssh -p 10022 -i ~/.ssh/id_ed25519' \
             "$GITHUB_WORKSPACE/" \
-            ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USERNAME }}/jibiki.tech/public_html
+            ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:/home/${{ secrets.SSH_USERNAME }}/jibiki.tech/public_html
