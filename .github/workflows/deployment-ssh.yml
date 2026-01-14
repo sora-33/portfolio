@@ -22,7 +22,7 @@ jobs:
           script: |
             cd /home/${{ secrets.SSH_USERNAME }}/jibiki.tech/public_html
 
-            rrsync -avz \
+            rsync -avz \
             -e "ssh -o StrictHostKeyChecking=no -p 10022" \
             --exclude='.git/' \
             --exclude='.github/' \
