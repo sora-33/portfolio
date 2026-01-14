@@ -21,5 +21,12 @@ jobs:
           port: 10022
           script: |
             cd /home/${{ secrets.SSH_USERNAME }}/jibiki.tech/public_html
-            
-            rsync -avz --delete --exclude='.git/' ./ /home/${{ secrets.SSH_USERNAME }}/jibiki.tech/public_html/
+
+            rrsync -avz \
+            -e "ssh -o StrictHostKeyChecking=no -p 10022" \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='node_modules/' \
+            --exclude='.gitignore' \
+            "$GITHUB_WORKSPACE"/ \
+            ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:/home/${{ secrets.SSH_USERNAME }}/jibiki.tech/public_html
