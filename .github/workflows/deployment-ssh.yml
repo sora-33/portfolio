@@ -11,6 +11,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Debug SSH_HOST presence
+        run: |
+          if [ -z "${{ secrets.SSH_HOST }}" ]; then
+            echo "ERROR: secrets.SSH_HOST is EMPTY (name mismatch or env secret not attached)"
+            exit 1
+          fi
+          echo "SSH_HOST is set"
+
+      - name: Debug SSH_USERNAME presence
+        run: |
+          if [ -z "${{ secrets.SSH_USERNAME }}" ]; then
+            echo "ERROR: secrets.SSH_USERNAME is EMPTY (name mismatch or env secret not attached)"
+            exit 1
+          fi
+          echo "SSH_USERNAME is set"
+
+      - name: Debug SSH_PRIVATE_KEY presence
+        run: |
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+            echo "ERROR: secrets.SSH_PRIVATE_KEY is EMPTY (name mismatch or env secret not attached)"
+            exit 1
+          fi
+          echo "SSH_PRIVATE_KEY is set"
+
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
